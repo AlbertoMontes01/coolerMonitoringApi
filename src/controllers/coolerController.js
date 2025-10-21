@@ -2,6 +2,8 @@ const coolerService = require('../services/coolerService');
 
 exports.getCoolersAndCameras = async (req, res) => {
   try {
+    console.log("📦 BODY RECIBIDO:", req.body);
+
     const { database } = req.body;
     if (!database) {
       return res.status(400).json({ message: 'Database name required' });

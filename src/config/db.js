@@ -2,9 +2,9 @@ const sql = require('mssql');
 require('dotenv').config();
 
 const baseConfig = {
-  user: process.env.DB_USER || 'sistema-soi',
-  password: process.env.DB_PASSWORD || 'S1s73m4.#%!!S01_T102245236',
-  server: process.env.DB_SERVER || 'corporativo.h52.mx',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
   options: { encrypt: false, trustServerCertificate: true },
 };
 

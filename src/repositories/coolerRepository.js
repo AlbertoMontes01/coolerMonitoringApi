@@ -1,7 +1,7 @@
 const { getConnection, sql } = require('../config/db');
 
-exports.getCoolers = async (database) => {
-  const pool = await getConnection(database);
+exports.getCoolers = async () => {
+  const pool = await getConnection('CorporativoH52');
   const result = await pool.request().query('SELECT * FROM cooler');
   return result.recordset;
 };

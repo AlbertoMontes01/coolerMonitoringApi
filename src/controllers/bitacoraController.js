@@ -33,3 +33,29 @@ exports.getHistorial = async (req, res) => {
     res.status(500).json({ message: "Error al obtener historial de bitácora" });
   }
 };
+
+// 🔹 Historial por cámara
+exports.getHistorialByCamara = async (req, res) => {
+  try {
+    const { camaraId } = req.params;
+    const { database } = req.query;
+    const data = await bitacoraService.getHistorialByCamara(database, camaraId);
+    res.json(data);
+  } catch (err) {
+    console.error("❌ Error getHistorialByCamara:", err);
+    res.status(500).json({ message: "Error al obtener historial por cámara" });
+  }
+};
+
+// 🔹 Historial por pallet
+exports.getHistorialByPallet = async (req, res) => {
+  try {
+    const { palletId } = req.params;
+    const { database } = req.query;
+    const data = await bitacoraService.getHistorialByPallet(database, palletId);
+    res.json(data);
+  } catch (err) {
+    console.error("❌ Error getHistorialByPallet:", err);
+    res.status(500).json({ message: "Error al obtener historial por pallet" });
+  }
+};

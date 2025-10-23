@@ -40,9 +40,36 @@ const getHistorial = async (database) => {
     `);
   return result.recordset;
 };
+// 🔹 Historial por cámara
+const getHistorialByCamara = async (database, camaraId) => {
+  const pool = await getConnection(database);
+  const result = await pool.request()
+    .input("camaraId", sql.VarChar, camaraId)
+    .query(`
+      SELECT * FROM bitacora_preenfrios
+      WHERE numeroPreenfrio = @camaraId
+      ORDER BY horaEntrada DESC
+    `);
+  return result.recordset;
+};
+
+// 🔹 Historial por pallet
+const getHistorialByPallet = async (database, palletId) => {
+  const pool = await getConnection(database);
+  const result = await pool.request()
+    .input("palletId", sql.Int, palletId)
+    .query(`
+      SELECT * FROM bitacora_preenfrios
+      WHERE palletId = @palletId
+      ORDER BY horaEntrada DESC
+    `);
+  return result.recordset;
+};
 
 module.exports = {
   getCamarasActivas,
   getPalletsByCamara,
   getHistorial,
+  getHistorialByCamara,
+  getHistorialByPallet,
 };

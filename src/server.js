@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/authRoutes');
 const coolerRoutes = require('./routes/coolerRoutes');
-const bitacoraRoutes = require("./routes/bitacoraRoutes");
+const bitacoraRoutes = require("./routes/bitacoraRoute");
 const lecturasRoutes = require("./routes/lecturasRoutes");
 const movimientosRoutes = require("./routes/movimientosRoutes");
 

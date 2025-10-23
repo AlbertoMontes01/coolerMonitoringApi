@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const coolerController = require('../controllers/coolerController');
+const authenticateToken = require('../middlewares/authMiddleware');
 
-router.post('/list', coolerController.getCoolersAndCameras);
+router.post('/list', authenticateToken, coolerController.getCoolersAndCameras);
 
 module.exports = router;

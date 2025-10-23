@@ -18,14 +18,16 @@ const getPalletsByCamara = async (database, camaraId) => {
   const pool = await getConnection(database);
   const result = await pool
     .request()
-    .input("camaraId", sql.Int, camaraId)
+    .input("camaraId", sql.VarChar, camaraId) // <-- usar VarChar (es GUID)
     .query(`
       SELECT * FROM bitacora_preenfrios
-      WHERE camara_id = @camaraId AND horaSalida IS NULL
+      WHERE numeroPreenfrio = @camaraId
+      AND horaSalida IS NULL
       ORDER BY horaEntrada DESC
     `);
   return result.recordset;
 };
+
 
 // 🔹 Historial completo
 const getHistorial = async (database) => {

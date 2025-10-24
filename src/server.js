@@ -33,7 +33,8 @@ io.on("connection", (socket) => {
 
   socket.on("update_pallet", (data) => {
     console.log("📦 Evento recibido de MOBILE (update_pallet):", data);
-    socket.broadcast.emit("pallet_update", data);
+    socket.emit("pallet_update", data); //ONLY for pruebas
+    //socket.broadcast.emit("pallet_update", data);
   });
 
   socket.on("update_temperature", (data) => {
@@ -44,6 +45,30 @@ io.on("connection", (socket) => {
   socket.on("pallet_moved", (data) => {
     console.log("🚚 Pallet movido:", data);
     socket.broadcast.emit("pallet_position_update", data);
+  });
+
+  // ============================================
+  // 🧩 EVENTOS DE SIMULACIÓN (backend testing)
+  // ============================================
+
+  socket.on("pallet_entry", (data) => {
+    console.log("🟢 [SIM] Pallet ENTRA:", data);
+    io.emit("pallet_entry", data);
+  });
+
+  socket.on("pallet_exit", (data) => {
+    console.log("🔴 [SIM] Pallet SALE:", data);
+    io.emit("pallet_exit", data);
+  });
+
+  socket.on("temperature_update", (data) => {
+    console.log("🌡️ [SIM] Temperatura actualizada:", data);
+    io.emit("temperature_update", data);
+  });
+
+  socket.on("pallet_move", (data) => {
+    console.log("🚚 [SIM] Movimiento de pallet:", data);
+    io.emit("pallet_move", data);
   });
 
   socket.on("disconnect", () => {

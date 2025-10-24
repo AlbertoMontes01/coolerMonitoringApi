@@ -10,7 +10,7 @@ socket.on("connect", () => {
   startTemperatureSimulation();
 });
 
-const camarasConservacion = ["CONSERVACION 1", "CONSERVACION 2", "CONSERVACION 3"];
+const camarasConservacion = ["Camara CONSERVACION 1", "Camara CONSERVACION 2", "Camara CONSERVACION 3"];
 const pallets = [32680, 32681, 32682, 32683, 32684, 32685];
 
 function startTemperatureSimulation() {

@@ -12,11 +12,11 @@ socket.on("connect", () => {
 });
 
 const camaras = [
-  "PRE-ENFRIO 1",
-  "PRE-ENFRIO 2",
-  "CONSERVACION 1",
-  "CONSERVACION 2",
-  "CONSERVACION 3",
+  "Camara PRE-ENFRIO 1",
+  "Camara PRE-ENFRIO 2",
+  "Camara CONSERVACION 1",
+  "Camara CONSERVACION 2",
+  "Camara CONSERVACION 3",
 ];
 const pallets = [32685, 32686, 32687, 32688, 32689];
 

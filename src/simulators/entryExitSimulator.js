@@ -10,7 +10,7 @@ socket.on("connect", () => {
   startSimulation();
 });
 
-const camaras = ["PRE-ENFRIO 1", "PRE-ENFRIO 2", "CONSERVACION 1", "CONSERVACION 2"];
+const camaras = ["Camara PRE-ENFRIO 1", "Camara PRE-ENFRIO 2", "Camara CONSERVACION 1", "Camara CONSERVACION 2"];
 const responsables = ["yahir.ceballos", "ricardo.huerta", "mauricio.mendoza"];
 let palletCounter = 32000;
 

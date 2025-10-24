@@ -1,4 +1,3 @@
-// simulators/temperatureSimulator.js
 const { io } = require("socket.io-client");
 
 const socket = io("http://localhost:4000", {
@@ -17,6 +16,7 @@ function startTemperatureSimulation() {
   setInterval(() => {
     const camara = camarasConservacion[Math.floor(Math.random() * camarasConservacion.length)];
     const palletId = pallets[Math.floor(Math.random() * pallets.length)];
+    const position = Math.floor(Math.random() * 9) + 1; // 🔹 agrega posición 1–9 o según la cámara
 
     const temps = {
       inf: (Math.random() * 5 + 1).toFixed(1),
@@ -27,10 +27,11 @@ function startTemperatureSimulation() {
     socket.emit("temperature_update", {
       palletId,
       camara,
+      position, // ✅ agregado
       temps,
       time: new Date().toISOString(),
     });
 
-    console.log(`🌡️ Lectura -> Pallet ${palletId} en ${camara}`, temps);
-  }, 9000); // cada 9 segundos
+    console.log(`🌡️ Lectura -> Pallet ${palletId} en ${camara} (pos ${position})`, temps);
+  }, 2000);
 }

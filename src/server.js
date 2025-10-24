@@ -33,8 +33,7 @@ io.on("connection", (socket) => {
 
   socket.on("update_pallet", (data) => {
     console.log("📦 Evento recibido de MOBILE (update_pallet):", data);
-    socket.emit("pallet_update", data); //ONLY for pruebas
-    //socket.broadcast.emit("pallet_update", data);
+    socket.broadcast.emit("pallet_update", data);
   });
 
   socket.on("update_temperature", (data) => {

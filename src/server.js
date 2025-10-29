@@ -28,56 +28,42 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`🟢 Cliente conectado: ${socket.id}`);
 
-  // Pallet entra o se actualiza
+  // 🧩 Cada cliente indica su cooler al conectar
+  socket.on("join_cooler", (coolerId) => {
+    socket.join(`cooler_${coolerId}`);
+    console.log(`👤 Cliente ${socket.id} unido a room cooler_${coolerId}`);
+  });
+
+  // 📦 Pallet actualizado (solo para ese cooler)
   socket.on("update_pallet", (data) => {
-    console.log("📦 Evento recibido de MOBILE (update_pallet):", data);
-    socket.broadcast.emit("pallet_update", data);
+    console.log("📦 Evento recibido:", data);
+    const room = `cooler_${data.coolerId || "default"}`;
+    socket.to(room).emit("pallet_update", data);
   });
 
-  // Actualización de temperatura
   socket.on("update_temperature", (data) => {
-    console.log("🌡️ Evento recibido de MOBILE (update_temperature):", data);
-    socket.broadcast.emit("temperature_update", data);
+    console.log("🌡️ Evento recibido:", data);
+    const room = `cooler_${data.coolerId || "default"}`;
+    socket.to(room).emit("temperature_update", data);
   });
 
-  // Pallet movido
   socket.on("pallet_moved", (data) => {
-    console.log("🚚 Pallet movido:", data);
-    socket.broadcast.emit("pallet_position_update", data);
+    console.log("🚚 Movimiento:", data);
+    const room = `cooler_${data.coolerId || "default"}`;
+    socket.to(room).emit("pallet_position_update", data);
   });
 
-  // Pallet sale de la cámara
   socket.on("pallet_exit", (data) => {
     console.log("🔴 Pallet salió:", data);
-    socket.broadcast.emit("pallet_removed", data);
-  });
-
-  // EVENTOS DE SIMULACIÓN solo para pruebas manuales
-
-  socket.on("pallet_entry", (data) => {
-    console.log("🟢 [SIM] Pallet ENTRA:", data);
-    io.emit("pallet_update", data);
-  });
-
-  socket.on("pallet_exit_sim", (data) => {
-    console.log("🔴 [SIM] Pallet SALE:", data);
-    io.emit("pallet_removed", data);
-  });
-
-  socket.on("temperature_sim", (data) => {
-    console.log("🌡️ [SIM] Temperatura actualizada:", data);
-    io.emit("temperature_update", data);
-  });
-
-  socket.on("pallet_move_sim", (data) => {
-    console.log("🚚 [SIM] Movimiento de pallet:", data);
-    io.emit("pallet_position_update", data);
+    const room = `cooler_${data.coolerId || "default"}`;
+    socket.to(room).emit("pallet_removed", data);
   });
 
   socket.on("disconnect", () => {
     console.log(`🔴 Cliente desconectado: ${socket.id}`);
   });
 });
+
 
 
 const PORT = process.env.PORT || 4000;

@@ -28,10 +28,23 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`🟢 Cliente conectado: ${socket.id}`);
 
-  // 🧩 Cada cliente indica su cooler al conectar
   socket.on("join_cooler", (coolerId) => {
     socket.join(`cooler_${coolerId}`);
-    console.log(`👤 Cliente ${socket.id} unido a room cooler_${coolerId}`);
+    console.log(`✅ ${socket.id} unido a cooler_${coolerId}`);
+  });
+
+  socket.on("leave_cooler", (coolerId) => {
+    socket.leave(`cooler_${coolerId}`);
+    console.log(`🚪 ${socket.id} salió de cooler_${coolerId}`);
+  });
+
+  socket.on("leave_all_coolers", () => {
+    for (const room of socket.rooms) {
+      if (room.startsWith("cooler_")) {
+        socket.leave(room);
+      }
+    }
+    console.log(`🚫 ${socket.id} salió de todos los coolers`);
   });
 
   // 📦 Pallet actualizado (solo para ese cooler)

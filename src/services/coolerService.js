@@ -19,3 +19,13 @@ exports.getCoolersWithCameras = async (database) => {
   }));
 };
 
+exports.getAllCoolersFromCorporativo = async () => {
+  const coolers = await coolerRepository.getCoolers('CorporativoH52');
+  return coolers.map(c => ({
+    cooler_id: c.cooler_id,
+    cooler_name: c.cooler_name,
+    ciudad: c.ciudad,
+    zona: c.zona,
+  }));
+};
+

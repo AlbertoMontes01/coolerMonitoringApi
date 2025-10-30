@@ -16,3 +16,14 @@ exports.getCoolersAndCameras = async (req, res) => {
     res.status(500).json({ message: 'Error fetching coolers and cameras' });
   }
 };
+
+exports.getCoolersPublic = async (req, res) => {
+  try {
+    const allCoolers = await coolerService.getAllCoolersFromCorporativo();
+
+    res.json(allCoolers);
+  } catch (err) {
+    console.error("❌ Error en getCoolersPublic:", err);
+    res.status(500).json({ message: "Error fetching coolers" });
+  }
+};

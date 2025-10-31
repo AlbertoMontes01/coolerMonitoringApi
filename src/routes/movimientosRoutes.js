@@ -5,9 +5,5 @@ const authenticateToken = require("../middlewares/authMiddleware");
 
 router.get("/pallet/:palletId", authenticateToken, controller.getMovimientosByPallet);
 router.get("/camara/:camaraId", authenticateToken, controller.getMovimientosByCamara);
-router.get(
-  "/ocupacion/:coolerId",
-  authenticateToken,
-  controller.getOcupacionByCooler
-);
+router.get("/ocupacion/:coolerId", authenticateToken, controller.getOcupacionByCooler);
 module.exports = router;

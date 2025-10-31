@@ -11,13 +11,15 @@ const getMovimientosByCamara = async (database, camaraId) => {
 const getOcupacionByCooler = async (database, coolerId) => {
   const registros = await movimientosRepo.getOcupacionByCooler(database, coolerId);
 
+  // Agrupar por cámara
   const agrupado = registros.reduce((acc, item) => {
-    const camara = acc.find((c) => c.camara_id === item.camaraId);
+    let camara = acc.find((c) => c.camara_id === item.camaraId);
     const entry = {
       position: item.position,
       palletId: item.palletId,
       producto: item.producto,
       cajas: item.cajas,
+      responsable: item.responsable,
     };
 
     if (camara) {
@@ -29,7 +31,6 @@ const getOcupacionByCooler = async (database, coolerId) => {
         ocupacion: [entry],
       });
     }
-
     return acc;
   }, []);
 

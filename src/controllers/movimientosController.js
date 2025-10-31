@@ -23,3 +23,16 @@ exports.getMovimientosByCamara = async (req, res) => {
     res.status(500).json({ message: "Error al obtener movimientos de cámara" });
   }
 };
+
+exports.getOcupacionByCooler = async (req, res) => {
+  const { database } = req.query;
+  const { coolerId } = req.params;
+
+  try {
+    const data = await movimientosService.getOcupacionByCooler(database, coolerId);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("❌ Error getOcupacionByCooler:", err);
+    res.status(500).json({ message: "Error al obtener ocupación actual del cooler" });
+  }
+};
